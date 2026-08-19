@@ -1,0 +1,158 @@
+{
+  "name": "Reklamation",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "title": "Mangel"
+    },
+    "description": {
+      "type": "string",
+      "title": "Beschreibung"
+    },
+    "project_id": {
+      "type": "string",
+      "title": "Projekt"
+    },
+    "project_name": {
+      "type": "string",
+      "title": "Projektname"
+    },
+    "customer_name": {
+      "type": "string",
+      "title": "Kunde"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Gemeldet",
+        "In Bearbeitung",
+        "Behoben",
+        "Abgewiesen"
+      ],
+      "default": "Gemeldet",
+      "title": "Status"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "Niedrig",
+        "Mittel",
+        "Hoch",
+        "Dringend"
+      ],
+      "default": "Mittel",
+      "title": "Priorit\u00e4t"
+    },
+    "reported_by": {
+      "type": "string",
+      "title": "Gemeldet von"
+    },
+    "reported_date": {
+      "type": "string",
+      "format": "date",
+      "title": "Gemeldet am"
+    },
+    "handled_by": {
+      "type": "string",
+      "title": "Bearbeitet von"
+    },
+    "resolution": {
+      "type": "string",
+      "title": "L\u00f6sung"
+    },
+    "verlauf": {
+      "type": "array",
+      "title": "Verlauf",
+      "items": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "title": "Datum"
+          },
+          "user": {
+            "type": "string",
+            "title": "Benutzer"
+          },
+          "action": {
+            "type": "string",
+            "title": "Aktion"
+          },
+          "notes": {
+            "type": "string",
+            "title": "Notiz"
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "title",
+    "project_id"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "monteur"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "monteur"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "monteur"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

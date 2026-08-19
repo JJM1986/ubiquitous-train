@@ -1,0 +1,161 @@
+{
+  "name": "Verhinderung",
+  "type": "object",
+  "properties": {
+    "project_id": {
+      "type": "string",
+      "title": "Projekt"
+    },
+    "project_name": {
+      "type": "string",
+      "title": "Projektbezeichnung"
+    },
+    "reason": {
+      "type": "string",
+      "title": "Grund der Verhinderung"
+    },
+    "trade": {
+      "type": "string",
+      "enum": [
+        "Malerarbeiten",
+        "Maurerarbeiten",
+        "Dachdecker",
+        "Elektro",
+        "Sanit\u00e4r/Heizung",
+        "Erdarbeiten",
+        "Kran/Hebezeug",
+        "Witterung",
+        "Materiallieferung",
+        "Beh\u00f6rde/Genehmigung",
+        "Sonstiges Fremdgewerk"
+      ],
+      "title": "Fremdgewerk"
+    },
+    "reported_by": {
+      "type": "string",
+      "title": "Gemeldet von"
+    },
+    "reported_date": {
+      "type": "string",
+      "format": "date",
+      "title": "Gemeldet am"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date",
+      "title": "Beginn der Verhinderung"
+    },
+    "expected_end_date": {
+      "type": "string",
+      "format": "date",
+      "title": "Voraussichtliches Ende"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Offen",
+        "Best\u00e4tigt",
+        "Behoben",
+        "Abgewiesen"
+      ],
+      "default": "Offen",
+      "title": "Status"
+    },
+    "impact_hours": {
+      "type": "number",
+      "title": "Auswirkung (Stunden)"
+    },
+    "description": {
+      "type": "string",
+      "title": "Beschreibung"
+    },
+    "resolution": {
+      "type": "string",
+      "title": "L\u00f6sung/Erledigung"
+    },
+    "admin_seen": {
+      "type": "boolean",
+      "title": "Admin gesehen",
+      "default": false
+    },
+    "auto_suggested": {
+      "type": "boolean",
+      "title": "Automatisch vorgeschlagen",
+      "default": false
+    },
+    "resolved_date": {
+      "type": "string",
+      "format": "date",
+      "title": "Behoben am"
+    }
+  },
+  "required": [
+    "project_id",
+    "reason",
+    "reported_date"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "monteur"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "monteur"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "monteur"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "name": "Fahrzeug",
+  "type": "object",
+  "properties": {
+    "bezeichnung": {
+      "type": "string",
+      "title": "Bezeichnung"
+    },
+    "kennzeichen": {
+      "type": "string",
+      "title": "Kennzeichen"
+    },
+    "typ": {
+      "type": "string",
+      "enum": [
+        "Transporter",
+        "LKW",
+        "PKW",
+        "Anh\u00e4nger",
+        "Kran",
+        "Sonstiges"
+      ],
+      "default": "Transporter",
+      "title": "Fahrzeugtyp"
+    },
+    "marke": {
+      "type": "string",
+      "title": "Marke"
+    },
+    "modell": {
+      "type": "string",
+      "title": "Modell"
+    },
+    "baujahr": {
+      "type": "number",
+      "title": "Baujahr"
+    },
+    "kilometerstand": {
+      "type": "number",
+      "title": "Kilometerstand"
+    },
+    "zul_gesamtmasse": {
+      "type": "number",
+      "title": "Zul\u00e4ssige Gesamtmasse (t)"
+    },
+    "leergewicht": {
+      "type": "number",
+      "title": "Leergewicht (t)"
+    },
+    "tuv": {
+      "type": "string",
+      "format": "date",
+      "title": "T\u00dcV / SP"
+    },
+    "inspect_date": {
+      "type": "string",
+      "format": "date",
+      "title": "N\u00e4chste Inspektion"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "aktiv",
+        "werkstatt",
+        "ausgemustert"
+      ],
+      "default": "aktiv",
+      "title": "Status"
+    },
+    "fahrer_id": {
+      "type": "string",
+      "title": "Fahrer / Zust\u00e4ndiger"
+    },
+    "fahrer_name": {
+      "type": "string",
+      "title": "Fahrer"
+    },
+    "kolonne_id": {
+      "type": "string",
+      "title": "Kolonne"
+    },
+    "einsatz_project_id": {
+      "type": "string",
+      "title": "Aktuelle Baustelle"
+    },
+    "einsatz_project_name": {
+      "type": "string",
+      "title": "Baustelle"
+    },
+    "location": {
+      "type": "string",
+      "title": "Standort"
+    },
+    "photo_url": {
+      "type": "string",
+      "title": "Foto"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notizen"
+    }
+  },
+  "required": [
+    "bezeichnung"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "monteur"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

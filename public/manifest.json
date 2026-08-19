@@ -1,0 +1,19 @@
+{
+  "name": "GerüstMeister",
+  "short_name": "GerüstMeister",
+  "description": "Verwaltung für Gerüstbau: Projekte, Ladelisten, Freigaben, Kolonnen und Fuhrpark.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#f97316",
+  "lang": "de",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any maskable"
+    }
+  ]
+}

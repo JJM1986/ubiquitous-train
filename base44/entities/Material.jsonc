@@ -1,0 +1,107 @@
+{
+  "name": "Material",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Bezeichnung"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "Ger\u00fcstrahmen",
+        "Bel\u00e4ge",
+        "Kupplungen",
+        "Rohre",
+        "Sicherheit",
+        "Zubeh\u00f6r",
+        "Sonstiges"
+      ],
+      "title": "Kategorie"
+    },
+    "unit": {
+      "type": "string",
+      "title": "Einheit",
+      "default": "St\u00fcck"
+    },
+    "stock": {
+      "type": "number",
+      "title": "Bestand",
+      "default": 0
+    },
+    "min_stock": {
+      "type": "number",
+      "title": "Mindestbestand",
+      "default": 0
+    },
+    "location": {
+      "type": "string",
+      "title": "Lagerort"
+    },
+    "purchase_price": {
+      "type": "number",
+      "title": "Einkaufspreis (\u20ac)"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notizen"
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "monteur"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

@@ -1,0 +1,171 @@
+{
+  "name": "Geruestfreigabe",
+  "type": "object",
+  "properties": {
+    "project_name": {
+      "type": "string",
+      "title": "Projekt / Baustelle"
+    },
+    "site_address": {
+      "type": "string",
+      "title": "Baustellenadresse"
+    },
+    "customer_name": {
+      "type": "string",
+      "title": "Kunde"
+    },
+    "scaffold_type": {
+      "type": "string",
+      "title": "Ger\u00fcstart"
+    },
+    "scaffold_height": {
+      "type": "number",
+      "title": "Ger\u00fcsth\u00f6he (m)"
+    },
+    "scaffold_area": {
+      "type": "number",
+      "title": "Ger\u00fcstfl\u00e4che (m\u00b2)"
+    },
+    "scaffold_class": {
+      "type": "string",
+      "enum": [
+        "Lastklasse 1",
+        "Lastklasse 2",
+        "Lastklasse 3",
+        "Lastklasse 4",
+        "Lastklasse 5",
+        "Lastklasse 6"
+      ],
+      "default": "Lastklasse 3",
+      "title": "Lastklasse"
+    },
+    "inspection_type": {
+      "type": "string",
+      "enum": [
+        "Erstpr\u00fcfung",
+        "Wiederholungspr\u00fcfung",
+        "Au\u00dferordentliche Pr\u00fcfung"
+      ],
+      "default": "Erstpr\u00fcfung",
+      "title": "Pr\u00fcfart"
+    },
+    "inspector_name": {
+      "type": "string",
+      "title": "Pr\u00fcfer"
+    },
+    "inspection_date": {
+      "type": "string",
+      "format": "date",
+      "title": "Pr\u00fcfdatum"
+    },
+    "result": {
+      "type": "string",
+      "enum": [
+        "Freigegeben",
+        "Freigegeben mit Auflagen",
+        "Nicht freigegeben"
+      ],
+      "default": "Freigegeben",
+      "title": "Ergebnis"
+    },
+    "checkpoints": {
+      "type": "array",
+      "title": "Pr\u00fcfpunkte",
+      "items": {
+        "type": "object",
+        "properties": {
+          "item": {
+            "type": "string",
+            "title": "Pr\u00fcfpunkt"
+          },
+          "passed": {
+            "type": "boolean",
+            "title": "Bestanden",
+            "default": false
+          },
+          "notes": {
+            "type": "string",
+            "title": "Anmerkung"
+          }
+        }
+      }
+    },
+    "conditions": {
+      "type": "string",
+      "title": "Auflagen"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notizen"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Entwurf",
+        "Freigegeben",
+        "Abgelehnt"
+      ],
+      "default": "Entwurf",
+      "title": "Status"
+    }
+  },
+  "required": [
+    "project_name",
+    "inspector_name",
+    "inspection_date"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "monteur"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "name": "BaustellenFoto",
+  "type": "object",
+  "properties": {
+    "project_id": {
+      "type": "string",
+      "title": "Projekt"
+    },
+    "project_name": {
+      "type": "string",
+      "title": "Projektbezeichnung"
+    },
+    "title": {
+      "type": "string",
+      "title": "Titel"
+    },
+    "photo_url": {
+      "type": "string",
+      "title": "Foto"
+    },
+    "latitude": {
+      "type": "number",
+      "title": "Breitengrad"
+    },
+    "longitude": {
+      "type": "number",
+      "title": "L\u00e4ngengrad"
+    },
+    "taken_at": {
+      "type": "string",
+      "title": "Aufgenommen am"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notizen"
+    }
+  },
+  "required": [
+    "photo_url",
+    "taken_at"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "monteur"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "monteur"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "monteur"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

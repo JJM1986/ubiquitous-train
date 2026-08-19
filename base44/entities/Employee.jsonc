@@ -1,0 +1,97 @@
+{
+  "name": "Employee",
+  "type": "object",
+  "properties": {
+    "first_name": {
+      "type": "string",
+      "title": "Vorname"
+    },
+    "last_name": {
+      "type": "string",
+      "title": "Nachname"
+    },
+    "role": {
+      "type": "string",
+      "enum": [
+        "Vorarbeiter",
+        "Monteur",
+        "Helfer",
+        "Fahrer",
+        "Bauleiter"
+      ],
+      "title": "Rolle"
+    },
+    "phone": {
+      "type": "string",
+      "title": "Telefon"
+    },
+    "email": {
+      "type": "string",
+      "title": "E-Mail"
+    },
+    "hourly_rate": {
+      "type": "number",
+      "title": "Stundenlohn (\u20ac)"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "aktiv",
+        "inaktiv",
+        "krank",
+        "urlaub"
+      ],
+      "default": "aktiv",
+      "title": "Status"
+    },
+    "hired_date": {
+      "type": "string",
+      "format": "date",
+      "title": "Einstellungsdatum"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notizen"
+    }
+  },
+  "required": [
+    "first_name",
+    "last_name"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "monteur"
+          }
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

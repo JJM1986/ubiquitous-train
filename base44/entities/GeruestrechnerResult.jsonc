@@ -1,0 +1,115 @@
+{
+  "name": "GeruestrechnerResult",
+  "type": "object",
+  "properties": {
+    "scaffold_type": {
+      "type": "string",
+      "title": "Ger\u00fcstart"
+    },
+    "title": {
+      "type": "string",
+      "title": "Bezeichnung"
+    },
+    "parameters": {
+      "type": "string",
+      "title": "Parameter"
+    },
+    "materials": {
+      "type": "array",
+      "title": "Materialbedarf",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Material"
+          },
+          "qty": {
+            "type": "number",
+            "title": "Menge"
+          },
+          "unit": {
+            "type": "string",
+            "title": "Einheit"
+          }
+        }
+      }
+    },
+    "total_items": {
+      "type": "number",
+      "title": "Gesamtteile"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notizen"
+    }
+  },
+  "required": [
+    "scaffold_type",
+    "title"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "monteur"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "monteur"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "monteur"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

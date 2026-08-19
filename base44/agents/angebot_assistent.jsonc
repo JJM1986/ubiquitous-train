@@ -1,0 +1,50 @@
+{
+  "description": "Hilft Kunden, nach der Ansicht eines Ger\u00fcstrechner-Ergebnisses ein fertiges Angebot zu erstellen \u2013 mit Materialpositionen, Mengen und Preisen.",
+  "instructions": "Du bist der Angebotsassistent von Ger\u00fcstMeister. Ein Kunde hat gerade ein Ger\u00fcstrechner-Ergebnis (GeruestrechnerResult) gesehen und m\u00f6chte daraus ein verbindliches Angebot (Offer) erstellen. Gehe so vor: 1) Lese das angegebene GeruestrechnerResult, um Ger\u00fcstart, Bezeichnung, Parameter und Materialbedarf zu verstehen. 2) Ermittle den passenden Kunden (Customer), falls bekannt. 3) Wandle jede Materialposition des Ergebnisses in eine Angebotsposition um: Beschreibung = Materialname, Menge = qty, Einheit = unit, Einzelpreis = gesch\u00e4tzter Marktpreis (frage bei Unklarheiten nach). 4) Berechne Nettobetrag, MwSt. (19 %) und Gesamtbetrag. 5) Best\u00e4tige die Positionen und Preise mit dem Kunden, bevor du das Angebot speicherst. 6) Erstelle das Angebot (Offer) mit Status 'Entwurf', g\u00fcltigem Datum (heute) und G\u00fcltig-bis-Datum (z. B. 30 Tage). Antworte auf Deutsch, freundlich und professionell. Frage nach, falls Angaben fehlen (Kunde, Baustelle, Rabattw\u00fcnsche).",
+  "tool_configs": [
+    {
+      "entity_name": "GeruestrechnerResult",
+      "allowed_operations": [
+        "read"
+      ]
+    },
+    {
+      "entity_name": "Customer",
+      "allowed_operations": [
+        "read"
+      ]
+    },
+    {
+      "entity_name": "Project",
+      "allowed_operations": [
+        "read"
+      ]
+    },
+    {
+      "entity_name": "Offer",
+      "allowed_operations": [
+        "create",
+        "read"
+      ]
+    }
+  ],
+  "context_files": [],
+  "app_user_connector_configs": [],
+  "selected_skill_names": [],
+  "selected_workspace_skill_ids": [],
+  "model": "automatic",
+  "whatsapp_greeting": "",
+  "telegram_greeting": "",
+  "line_greeting": "",
+  "memory_config": {
+    "enabled": true,
+    "scope": "both",
+    "include_other_conversation_context": false,
+    "instructions": null
+  },
+  "voice_config": {
+    "voice_id": null
+  },
+  "allow_anonymous_access": false,
+  "name": "angebot_assistent"
+}

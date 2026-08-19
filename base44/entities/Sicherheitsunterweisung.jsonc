@@ -1,0 +1,120 @@
+{
+  "name": "Sicherheitsunterweisung",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "title": "Titel"
+    },
+    "topic": {
+      "type": "string",
+      "title": "Thema"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "title": "Datum"
+    },
+    "location": {
+      "type": "string",
+      "title": "Ort"
+    },
+    "instructor": {
+      "type": "string",
+      "title": "Unterweiser"
+    },
+    "participants": {
+      "type": "array",
+      "title": "Teilnehmer",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "signed": {
+            "type": "boolean",
+            "title": "Unterschrieben",
+            "default": false
+          },
+          "signed_at": {
+            "type": "string",
+            "title": "Unterschrieben am"
+          }
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Geplant",
+        "Durchgef\u00fchrt"
+      ],
+      "default": "Geplant",
+      "title": "Status"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notizen"
+    }
+  },
+  "required": [
+    "title",
+    "date"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "monteur"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

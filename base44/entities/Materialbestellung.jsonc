@@ -1,0 +1,126 @@
+{
+  "name": "Materialbestellung",
+  "type": "object",
+  "properties": {
+    "material_name": {
+      "type": "string",
+      "title": "Material"
+    },
+    "material_id": {
+      "type": "string",
+      "title": "Material ID"
+    },
+    "quantity": {
+      "type": "number",
+      "title": "Menge",
+      "default": 1
+    },
+    "unit": {
+      "type": "string",
+      "title": "Einheit",
+      "default": "Stk"
+    },
+    "supplier": {
+      "type": "string",
+      "title": "Lieferant"
+    },
+    "order_date": {
+      "type": "string",
+      "format": "date",
+      "title": "Bestelldatum"
+    },
+    "expected_delivery": {
+      "type": "string",
+      "format": "date",
+      "title": "Lieferung erwartet"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Offen",
+        "Bestellt",
+        "Unterwegs",
+        "Teilgeliefert",
+        "Geliefert",
+        "Storniert"
+      ],
+      "default": "Offen",
+      "title": "Status"
+    },
+    "project_id": {
+      "type": "string",
+      "title": "Projekt"
+    },
+    "cost": {
+      "type": "number",
+      "title": "Kosten (\u20ac)"
+    },
+    "tracking_note": {
+      "type": "string",
+      "title": "Sendungsverfolgung"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notizen"
+    }
+  },
+  "required": [
+    "material_name",
+    "quantity",
+    "order_date"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "monteur"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

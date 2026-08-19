@@ -1,0 +1,99 @@
+{
+  "name": "Subunternehmer",
+  "type": "object",
+  "properties": {
+    "company_name": {
+      "type": "string",
+      "title": "Firma"
+    },
+    "contact_person": {
+      "type": "string",
+      "title": "Ansprechpartner"
+    },
+    "email": {
+      "type": "string",
+      "title": "E-Mail"
+    },
+    "phone": {
+      "type": "string",
+      "title": "Telefon"
+    },
+    "address": {
+      "type": "string",
+      "title": "Adresse"
+    },
+    "trade": {
+      "type": "string",
+      "title": "Gewerk"
+    },
+    "hourly_rate": {
+      "type": "number",
+      "title": "Stundensatz (\u20ac)"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "aktiv",
+        "inaktiv"
+      ],
+      "default": "aktiv",
+      "title": "Status"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notizen"
+    }
+  },
+  "required": [
+    "company_name"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

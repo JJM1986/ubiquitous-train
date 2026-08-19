@@ -1,0 +1,108 @@
+{
+  "name": "Assignment",
+  "type": "object",
+  "properties": {
+    "project_id": {
+      "type": "string",
+      "title": "Projekt"
+    },
+    "employee_id": {
+      "type": "string",
+      "title": "Mitarbeiter"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "title": "Datum"
+    },
+    "start_time": {
+      "type": "string",
+      "title": "Beginn"
+    },
+    "end_time": {
+      "type": "string",
+      "title": "Ende"
+    },
+    "hours": {
+      "type": "number",
+      "title": "Stunden"
+    },
+    "task": {
+      "type": "string",
+      "title": "T\u00e4tigkeit"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Geplant",
+        "In Arbeit",
+        "Abgeschlossen"
+      ],
+      "default": "Geplant",
+      "title": "Status"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notizen"
+    }
+  },
+  "required": [
+    "project_id",
+    "employee_id",
+    "date"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "monteur"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

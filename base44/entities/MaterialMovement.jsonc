@@ -1,0 +1,107 @@
+{
+  "name": "MaterialMovement",
+  "type": "object",
+  "properties": {
+    "material_id": {
+      "type": "string",
+      "title": "Material"
+    },
+    "project_id": {
+      "type": "string",
+      "title": "Projekt (optional)"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "Zugang",
+        "Abgang",
+        "Ausgabe",
+        "R\u00fcckgabe"
+      ],
+      "title": "Bewegungsart"
+    },
+    "quantity": {
+      "type": "number",
+      "title": "Menge"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "title": "Datum"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notizen"
+    }
+  },
+  "required": [
+    "material_id",
+    "type",
+    "quantity",
+    "date"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "monteur"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "monteur"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "monteur"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

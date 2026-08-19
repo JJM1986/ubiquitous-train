@@ -1,0 +1,105 @@
+{
+  "name": "Aufbauplan",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "title": "Titel"
+    },
+    "document_type": {
+      "type": "string",
+      "enum": [
+        "Aufbauplan",
+        "Skizze",
+        "Montageplan",
+        "Abnahmeskizze",
+        "Sonstiges"
+      ],
+      "default": "Aufbauplan",
+      "title": "Typ"
+    },
+    "project_id": {
+      "type": "string",
+      "title": "Projekt"
+    },
+    "project_name": {
+      "type": "string",
+      "title": "Projektbezeichnung"
+    },
+    "file_url": {
+      "type": "string",
+      "title": "Datei"
+    },
+    "has_deviation": {
+      "type": "boolean",
+      "title": "Abweichung vorhanden",
+      "default": false
+    },
+    "deviation_note": {
+      "type": "string",
+      "title": "Abweichung"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notizen"
+    }
+  },
+  "required": [
+    "title",
+    "file_url"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "monteur"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "name": "AbnahmeCheckliste",
+  "type": "object",
+  "properties": {
+    "project_id": {
+      "type": "string",
+      "title": "Projekt"
+    },
+    "project_name": {
+      "type": "string",
+      "title": "Projektbezeichnung"
+    },
+    "customer_name": {
+      "type": "string",
+      "title": "Kunde"
+    },
+    "inspection_date": {
+      "type": "string",
+      "format": "date",
+      "title": "Abnahmedatum"
+    },
+    "inspector_name": {
+      "type": "string",
+      "title": "Pr\u00fcfer (Ger\u00fcstbau)"
+    },
+    "client_representative": {
+      "type": "string",
+      "title": "Kundenvertreter"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Entwurf",
+        "Best\u00e4tigt",
+        "Abgeschlossen"
+      ],
+      "default": "Entwurf",
+      "title": "Status"
+    },
+    "checkpoints": {
+      "type": "array",
+      "title": "Pr\u00fcfpunkte",
+      "items": {
+        "type": "object",
+        "properties": {
+          "item": {
+            "type": "string",
+            "title": "Pr\u00fcfpunkt"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "offen",
+              "bestaetigt",
+              "entfaellt"
+            ],
+            "default": "offen",
+            "title": "Status"
+          },
+          "notes": {
+            "type": "string",
+            "title": "Anmerkung"
+          }
+        }
+      }
+    },
+    "overall_result": {
+      "type": "string",
+      "enum": [
+        "Freigegeben",
+        "Freigegeben mit Auflagen",
+        "Nicht freigegeben"
+      ],
+      "title": "Gesamtergebnis"
+    },
+    "conditions": {
+      "type": "string",
+      "title": "Auflagen"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notizen"
+    }
+  },
+  "required": [
+    "project_id",
+    "inspection_date"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "monteur"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

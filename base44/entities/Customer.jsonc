@@ -1,0 +1,104 @@
+{
+  "name": "Customer",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Name"
+    },
+    "company": {
+      "type": "string",
+      "title": "Firma"
+    },
+    "email": {
+      "type": "string",
+      "title": "E-Mail"
+    },
+    "phone": {
+      "type": "string",
+      "title": "Telefon"
+    },
+    "address": {
+      "type": "string",
+      "title": "Adresse"
+    },
+    "city": {
+      "type": "string",
+      "title": "Stadt"
+    },
+    "zip": {
+      "type": "string",
+      "title": "PLZ"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notizen"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "aktiv",
+        "inaktiv"
+      ],
+      "default": "aktiv",
+      "title": "Status"
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "monteur"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

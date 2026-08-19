@@ -1,0 +1,118 @@
+{
+  "name": "ProjektHistorie",
+  "type": "object",
+  "properties": {
+    "project_id": {
+      "type": "string",
+      "title": "Projekt"
+    },
+    "project_name": {
+      "type": "string",
+      "title": "Projektbezeichnung"
+    },
+    "action_type": {
+      "type": "string",
+      "enum": [
+        "Statuswechsel",
+        "Erstellt",
+        "Bearbeitet",
+        "Verhinderung gemeldet",
+        "Verhinderung behoben"
+      ],
+      "title": "Aktionstyp"
+    },
+    "field_changed": {
+      "type": "string",
+      "title": "Ge\u00e4ndertes Feld"
+    },
+    "old_value": {
+      "type": "string",
+      "title": "Alter Wert"
+    },
+    "new_value": {
+      "type": "string",
+      "title": "Neuer Wert"
+    },
+    "user_name": {
+      "type": "string",
+      "title": "Benutzer"
+    },
+    "timestamp": {
+      "type": "string",
+      "title": "Zeitpunkt"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notiz"
+    }
+  },
+  "required": [
+    "project_id",
+    "action_type",
+    "timestamp"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "monteur"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "monteur"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "monteur"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

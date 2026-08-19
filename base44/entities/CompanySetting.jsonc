@@ -1,0 +1,115 @@
+{
+  "name": "CompanySetting",
+  "type": "object",
+  "properties": {
+    "company_name": {
+      "type": "string",
+      "title": "Firmenname"
+    },
+    "address": {
+      "type": "string",
+      "title": "Adresse"
+    },
+    "zip": {
+      "type": "string",
+      "title": "PLZ"
+    },
+    "city": {
+      "type": "string",
+      "title": "Stadt"
+    },
+    "phone": {
+      "type": "string",
+      "title": "Telefon"
+    },
+    "email": {
+      "type": "string",
+      "title": "E-Mail"
+    },
+    "website": {
+      "type": "string",
+      "title": "Website"
+    },
+    "vat_id": {
+      "type": "string",
+      "title": "USt-IdNr."
+    },
+    "tax_number": {
+      "type": "string",
+      "title": "Steuernummer"
+    },
+    "logo_url": {
+      "type": "string",
+      "title": "Logo"
+    },
+    "bank_name": {
+      "type": "string",
+      "title": "Bank"
+    },
+    "iban": {
+      "type": "string",
+      "title": "IBAN"
+    },
+    "bic": {
+      "type": "string",
+      "title": "BIC"
+    },
+    "ceo": {
+      "type": "string",
+      "title": "Gesch\u00e4ftsf\u00fchrer"
+    },
+    "trade_register": {
+      "type": "string",
+      "title": "Handelsregister"
+    },
+    "description": {
+      "type": "string",
+      "title": "Beschreibung",
+      "maxLength": 1000
+    }
+  },
+  "required": [
+    "company_name"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "monteur"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "user"
+          }
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

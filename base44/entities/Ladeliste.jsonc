@@ -1,0 +1,137 @@
+{
+  "name": "Ladeliste",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "title": "Bezeichnung"
+    },
+    "project_id": {
+      "type": "string",
+      "title": "Projekt"
+    },
+    "project_name": {
+      "type": "string",
+      "title": "Projektbezeichnung"
+    },
+    "fahrzeug_id": {
+      "type": "string",
+      "title": "Fahrzeug"
+    },
+    "fahrzeug_name": {
+      "type": "string",
+      "title": "Fahrzeugname"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "title": "Ladedatum"
+    },
+    "total_weight": {
+      "type": "number",
+      "title": "Gesamtgewicht (t)"
+    },
+    "materials": {
+      "type": "array",
+      "title": "Materialpositionen",
+      "items": {
+        "type": "object",
+        "properties": {
+          "material_name": {
+            "type": "string",
+            "title": "Material"
+          },
+          "quantity": {
+            "type": "number",
+            "title": "Menge"
+          },
+          "unit": {
+            "type": "string",
+            "title": "Einheit"
+          },
+          "weight_per_unit": {
+            "type": "number",
+            "title": "Gewicht pro Einheit (kg)"
+          },
+          "total_weight": {
+            "type": "number",
+            "title": "Positionsgewicht (kg)"
+          }
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Geplant",
+        "Beladen",
+        "Unterwegs",
+        "Entladen"
+      ],
+      "default": "Geplant",
+      "title": "Status"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notizen"
+    }
+  },
+  "required": [
+    "title",
+    "date"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "monteur"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

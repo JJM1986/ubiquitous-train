@@ -1,0 +1,80 @@
+{
+  "name": "Hilfeartikel",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "title": "Titel"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "Erste Schritte",
+        "Ger\u00fcstplanung",
+        "Material",
+        "Freigaben",
+        "Einsatzplanung",
+        "System"
+      ],
+      "default": "Erste Schritte",
+      "title": "Kategorie"
+    },
+    "summary": {
+      "type": "string",
+      "title": "Zusammenfassung"
+    },
+    "content": {
+      "type": "string",
+      "title": "Inhalt"
+    },
+    "sort_order": {
+      "type": "number",
+      "title": "Sortierung",
+      "default": 0
+    }
+  },
+  "required": [
+    "title"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "monteur"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "user"
+          }
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

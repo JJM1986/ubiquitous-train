@@ -1,0 +1,155 @@
+{
+  "name": "Project",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "title": "Projektbezeichnung"
+    },
+    "customer_id": {
+      "type": "string",
+      "title": "Kunde"
+    },
+    "address": {
+      "type": "string",
+      "title": "Baustellenadresse"
+    },
+    "city": {
+      "type": "string",
+      "title": "Stadt"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Anfrage",
+        "Angebot",
+        "Beauftragt",
+        "In Arbeit",
+        "Abgeschlossen",
+        "Storniert"
+      ],
+      "default": "Anfrage",
+      "title": "Status"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date",
+      "title": "Startdatum"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date",
+      "title": "Enddatum"
+    },
+    "assembly_date": {
+      "type": "string",
+      "format": "date",
+      "title": "Aufbaudatum"
+    },
+    "disassembly_date": {
+      "type": "string",
+      "format": "date",
+      "title": "Abbaudatum"
+    },
+    "kolonne_id": {
+      "type": "string",
+      "title": "Kolonne"
+    },
+    "baustelle_status": {
+      "type": "string",
+      "enum": [
+        "geplant",
+        "l\u00e4uft",
+        "fertig"
+      ],
+      "default": "geplant",
+      "title": "Baustellen-Status"
+    },
+    "scaffold_type": {
+      "type": "string",
+      "title": "Ger\u00fcsttyp"
+    },
+    "scaffold_area": {
+      "type": "number",
+      "title": "Fl\u00e4che (m\u00b2)"
+    },
+    "scaffold_height": {
+      "type": "number",
+      "title": "H\u00f6he (m)"
+    },
+    "description": {
+      "type": "string",
+      "title": "Beschreibung"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notizen"
+    },
+    "latitude": {
+      "type": "number",
+      "title": "Breitengrad"
+    },
+    "longitude": {
+      "type": "number",
+      "title": "L\u00e4ngengrad"
+    }
+  },
+  "required": [
+    "title",
+    "customer_id"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "monteur"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

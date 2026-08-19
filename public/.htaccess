@@ -1,0 +1,21 @@
+# SPA-Routing: alle Pfade an index.html weiterreichen,
+# damit z. B. /Projects direkt aufrufbar ist (kein 404).
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+  RewriteRule . /index.html [L]
+</IfModule>
+
+# Statische Assets lange cachen, index.html nie.
+<IfModule mod_headers.c>
+  <FilesMatch "\.(js|css|svg|png|jpg|jpeg|webp|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(html|json)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>

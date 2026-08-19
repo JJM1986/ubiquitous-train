@@ -1,0 +1,122 @@
+{
+  "name": "Standortbestand",
+  "type": "object",
+  "properties": {
+    "material_name": {
+      "type": "string",
+      "title": "Material"
+    },
+    "material_id": {
+      "type": "string",
+      "title": "Material ID"
+    },
+    "quantity": {
+      "type": "number",
+      "title": "Menge",
+      "default": 1
+    },
+    "unit": {
+      "type": "string",
+      "title": "Einheit",
+      "default": "Stk"
+    },
+    "location": {
+      "type": "string",
+      "title": "Standort"
+    },
+    "project_id": {
+      "type": "string",
+      "title": "Projekt"
+    },
+    "barcode": {
+      "type": "string",
+      "title": "Barcode"
+    },
+    "scan_date": {
+      "type": "string",
+      "title": "Scan-Datum"
+    },
+    "latitude": {
+      "type": "number",
+      "title": "Breitengrad"
+    },
+    "longitude": {
+      "type": "number",
+      "title": "L\u00e4ngengrad"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notizen"
+    }
+  },
+  "required": [
+    "material_name",
+    "quantity",
+    "location",
+    "scan_date"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "monteur"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "monteur"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "monteur"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

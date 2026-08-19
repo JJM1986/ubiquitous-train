@@ -1,0 +1,100 @@
+{
+  "name": "Kolonne",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Kolonnenname"
+    },
+    "leader_id": {
+      "type": "string",
+      "title": "Kolonnenf\u00fchrer"
+    },
+    "leader_name": {
+      "type": "string",
+      "title": "F\u00fchrer"
+    },
+    "member_ids": {
+      "type": "array",
+      "title": "Mitglieder",
+      "items": {
+        "type": "string"
+      }
+    },
+    "member_count": {
+      "type": "number",
+      "title": "Anzahl Mitglieder",
+      "default": 0
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "aktiv",
+        "inaktiv"
+      ],
+      "default": "aktiv",
+      "title": "Status"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notizen"
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "monteur"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

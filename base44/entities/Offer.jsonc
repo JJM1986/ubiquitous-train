@@ -1,0 +1,135 @@
+{
+  "name": "Offer",
+  "type": "object",
+  "properties": {
+    "offer_number": {
+      "type": "string",
+      "title": "Angebotsnummer"
+    },
+    "project_id": {
+      "type": "string",
+      "title": "Projekt"
+    },
+    "customer_id": {
+      "type": "string",
+      "title": "Kunde"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "title": "Datum"
+    },
+    "valid_until": {
+      "type": "string",
+      "format": "date",
+      "title": "G\u00fcltig bis"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Entwurf",
+        "Gesendet",
+        "Angenommen",
+        "Abgelehnt"
+      ],
+      "default": "Entwurf",
+      "title": "Status"
+    },
+    "positions": {
+      "type": "array",
+      "title": "Positionen",
+      "items": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "title": "Beschreibung"
+          },
+          "quantity": {
+            "type": "number",
+            "title": "Menge"
+          },
+          "unit": {
+            "type": "string",
+            "title": "Einheit"
+          },
+          "unit_price": {
+            "type": "number",
+            "title": "Einzelpreis (\u20ac)"
+          }
+        }
+      }
+    },
+    "subtotal": {
+      "type": "number",
+      "title": "Nettobetrag (\u20ac)"
+    },
+    "tax_rate": {
+      "type": "number",
+      "title": "MwSt. (%)",
+      "default": 19
+    },
+    "total": {
+      "type": "number",
+      "title": "Gesamtbetrag (\u20ac)"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Anmerkungen"
+    }
+  },
+  "required": [
+    "offer_number",
+    "customer_id",
+    "date"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "bauleiter"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}
