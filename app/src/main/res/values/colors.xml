@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="orange_primary">#F97316</color>
+    <color name="orange_dark">#C2410C</color>
+    <color name="slate_900">#0F172A</color>
+    <color name="slate_800">#1E293B</color>
+    <color name="slate_100">#F1F5F9</color>
+    <color name="white">#FFFFFF</color>
+</resources>

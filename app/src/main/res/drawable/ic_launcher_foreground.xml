@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Centered within 66dp safe zone (21dp to 87dp) -->
+    <!-- Scaffolding Frame -->
+    <path
+        android:pathData="M34,26 L34,82 M74,26 L74,82"
+        android:strokeColor="#F97316"
+        android:strokeWidth="4"
+        android:strokeLineCap="round" />
+    <path
+        android:pathData="M34,34 L74,34 M34,54 L74,54 M34,74 L74,74"
+        android:strokeColor="#F97316"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round" />
+    <!-- Diagonal Braces -->
+    <path
+        android:pathData="M34,34 L74,54 M74,54 L34,74"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round" />
+    <!-- Platform deck -->
+    <path
+        android:pathData="M30,52 L78,52"
+        android:strokeColor="#FFA726"
+        android:strokeWidth="4"
+        android:strokeLineCap="square" />
+    <!-- Hard Hat icon symbol at top -->
+    <path
+        android:pathData="M46,30 C46,24 62,24 62,30 Z"
+        android:fillColor="#F97316" />
+    <path
+        android:pathData="M43,30 L65,30"
+        android:strokeColor="#F97316"
+        android:strokeWidth="2"
+        android:strokeLineCap="round" />
+</vector>

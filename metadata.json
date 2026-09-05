@@ -1,0 +1,8 @@
+{
+  "name": "GerüstMeister",
+  "description": "Professionelle Gerüstbau-Verwaltung mit digitalem Gerüstrechner, Baustellenmanagement, DIN EN 12811 Freigabeprotokollen, Einsatzplanung und Lagerverwaltung.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
