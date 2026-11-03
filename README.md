@@ -1,77 +1,77 @@
-# Base44 Project
+# GerüstMeister
 
-Use this repository to run and edit the app locally, then publish changes back through Base44.
+Verwaltungs-App für Gerüstbaubetriebe: Baustellen, Projekte, Gerüstrechner, Einsatzplanung, Lager, Angebote, Gerüstfreigaben und Subunternehmer-Portal.
 
-Any change pushed to the repo will also be reflected in the Base44 Builder.
+**Technik:** React 18, Vite, Tailwind CSS und shadcn/ui im Frontend, [Supabase](https://supabase.com) als Backend (Datenbank, Login, Dateispeicher, Edge Functions). Gehostet wird auf Vercel.
 
-## Prerequisites
+## Voraussetzungen
 
-1. Clone the repository using the project's Git URL.
-2. Navigate to the project directory.
-3. Install dependencies: `npm install`.
-4. Install the Base44 CLI: `npm install -g base44@latest`.
+- Node.js 20 oder neuer
+- Ein Supabase-Projekt
+- Für die Edge Function: die [Supabase CLI](https://supabase.com/docs/guides/local-development/cli/getting-started)
 
-See the [Base44 CLI docs](https://docs.base44.com/developers/references/cli/get-started/overview) if you want to run Base44 commands directly.
-
-## Run Locally
-
-Run the full local development environment from the project root:
+## Lokal starten
 
 ```bash
-base44 dev
-```
-
-`base44 dev` starts the local Base44 development backend and, when this app is configured for it, also starts the frontend dev server for you. Use the frontend URL printed by the command.
-
-For example, when the Base44 project config includes a `serveCommand`, `base44 dev` can launch the frontend too:
-
-```json5
-{
-  "site": {
-    "serveCommand": "npm run dev"
-  }
-}
-```
-
-In a Base44 project this lives in `base44/config.jsonc`.
-
-## Run Only The Frontend
-
-If you only want to work on the frontend against the hosted Base44 backend, run:
-
-```bash
+npm install
+cp .env.example .env.local   # danach die Werte eintragen
 npm run dev
 ```
 
-Open the local URL printed by Vite.
+Vite gibt die lokale Adresse aus, meist `http://localhost:5173`.
 
-## Use The Hosted Backend
+### Umgebungsvariablen
 
-For frontend-only development, create or update `.env.local` in the project root:
+In `.env.local` (wird nicht committet):
 
-```bash
-VITE_BASE44_APP_ID=your_app_id
-VITE_BASE44_APP_BASE_URL=https://your-app.base44.app
-```
+| Variable | Woher |
+| --- | --- |
+| `VITE_SUPABASE_URL` | Supabase → Project Settings → API → Project URL |
+| `VITE_SUPABASE_ANON_KEY` | Supabase → Project Settings → API → `anon` / publishable key |
 
-`VITE_BASE44_APP_ID` identifies the Base44 app.
+Alles mit `VITE_` landet im Browser. Hier gehören nur öffentliche Werte hin, niemals der `service_role`-Key, SMTP-Zugangsdaten oder API-Schlüssel.
 
-`VITE_BASE44_APP_BASE_URL` tells the Base44 Vite plugin where to send local `/api` requests. Point it at your deployed Base44 app URL when you want the local frontend to use the hosted backend.
+## Supabase einrichten
 
-When you use `base44 dev`, the command injects the local Base44 values for you, so `.env.local` is mainly needed for frontend-only workflows.
+1. **Datenbank:** Im Supabase SQL-Editor zuerst `supabase/01-schema.sql`, dann `supabase/02-storage.sql` ausführen. Das zweite Skript legt den Speicher-Bucket `uploads` für Fotos, Aufbaupläne und Dokumente an.
+2. **E-Mail-Versand:** Die Edge Function `send-email` verschickt Mails per SMTP. Zugangsdaten als Secrets hinterlegen und die Function deployen:
 
-## Publish Your Changes
+   ```bash
+   supabase secrets set SMTP_HOST=... SMTP_PORT=... SMTP_USER=... SMTP_PASS=... MAIL_FROM=...
+   supabase functions deploy send-email
+   ```
 
-After pushing your changes to git, open the Base44 dashboard and publish the app:
+## Wie das Backend angebunden ist
 
-```bash
-base44 dashboard open
-```
+Die App lief ursprünglich auf Base44 und wurde auf Supabase umgezogen. Damit die rund 119 Aufrufstellen nicht umgeschrieben werden mussten, gibt es eine Adapter-Schicht:
 
-## Docs & Support
+- `src/api/supabaseClient.js`: erzeugt den Supabase-Client.
+- `src/api/backend.js`: bildet die alten Base44-Befehle auf Supabase ab:
+  - `entities.<Name>.list / filter / get / create / update / delete` → Tabelle in `snake_case` (aus `AbnahmeCheckliste` wird `abnahme_checkliste`)
+  - `auth.*` → Supabase Auth
+  - `integrations.Core.UploadFile` → Storage-Bucket `uploads`
+  - `integrations.Core.SendEmail` → Edge Function `send-email`
+- `src/api/base44Client.js`: exportiert den Adapter weiterhin unter dem Namen `base44`, damit bestehende Imports funktionieren.
 
-Documentation: [https://docs.base44.com/Integrations/Using-GitHub](https://docs.base44.com/Integrations/Using-GitHub)
+Neuer Code kann `base44` aus `@/api/base44Client` weiterverwenden oder direkt `supabase` aus `@/api/supabaseClient` nutzen.
 
-Base44 CLI command reference: [https://docs.base44.com/developers/references/cli/commands/introduction](https://docs.base44.com/developers/references/cli/commands/introduction)
+Der Ordner `base44/` enthält nur noch die alten Base44-Definitionen (Entities, Agents) als Referenz. Er wird von der App nicht mehr verwendet.
 
-Support: [https://app.base44.com/support](https://app.base44.com/support)
+## Befehle
+
+| Befehl | Zweck |
+| --- | --- |
+| `npm run dev` | Entwicklungsserver |
+| `npm run build` | Produktions-Build nach `dist/` |
+| `npm run preview` | Build lokal ansehen |
+| `npm run lint` | ESLint prüfen |
+| `npm run lint:fix` | ESLint-Fehler automatisch beheben |
+| `npm run typecheck` | TypeScript-Prüfung über `jsconfig.json` |
+
+## Deployment (Vercel)
+
+1. Repository in Vercel importieren. Vite wird automatisch erkannt.
+2. Unter Settings → Environment Variables `VITE_SUPABASE_URL` und `VITE_SUPABASE_ANON_KEY` eintragen.
+3. `vercel.json` leitet alle Pfade auf `index.html` um, damit das clientseitige Routing funktioniert.
+
+Jeder Push auf `main` löst ein neues Deployment aus.
