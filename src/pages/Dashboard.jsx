@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
-import { Users, Briefcase, FileText, Package, HardHat, TrendingUp, AlertTriangle, Calendar } from "lucide-react";
+import { Users, Briefcase, FileText, HardHat, AlertTriangle, Calendar } from "lucide-react";
 import OnboardingChecklist from "@/components/OnboardingChecklist";
 import PullToRefresh from "@/components/PullToRefresh";
 import ProjektPhasenChart from "@/components/ProjektPhasenChart";

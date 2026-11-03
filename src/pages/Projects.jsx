@@ -5,7 +5,6 @@ import { Plus, Search, MapPin, Calendar, ChevronRight, Briefcase } from "lucide-
 import { useAuth } from "@/lib/AuthContext";
 import PullToRefresh from "@/components/PullToRefresh";
 import BottomSheetSelect from "@/components/BottomSheetSelect";
-import { toast } from "sonner";
 
 const statusColors = {
   "Anfrage": "bg-gray-100 text-gray-700",

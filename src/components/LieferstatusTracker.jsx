@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
-import { Truck, Package, CheckCircle2, Clock, X, ChevronDown, ChevronUp, Send } from "lucide-react";
+import { Truck, Package, CheckCircle2, Clock, X, ChevronDown, ChevronUp } from "lucide-react";
 import { toast } from "sonner";
 import { markMaterialOrderDelivered } from "@/lib/materialDelivery";
 

@@ -3,7 +3,6 @@ import { base44 } from "@/api/base44Client";
 import { downloadCSV, dateStr } from "@/lib/csvExport";
 import { totalWeightForMaterials } from "@/lib/geruestrechnerSession";
 import { History, Trash2, Download, ChevronDown } from "lucide-react";
-import { toast } from "sonner";
 
 export default function Berechnungshistorie() {
   const [items, setItems] = useState([]);

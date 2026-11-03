@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Search, HardHat, ArrowUp, ArrowDown, Users, Edit, X } from "lucide-react";
-import { toast } from "sonner";
 
 const statusConfig = {
   "geplant": { label: "Geplant", color: "bg-gray-100 text-gray-700", dot: "bg-gray-400" },

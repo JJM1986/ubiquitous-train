@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { base44 } from "@/api/base44Client";
 import { Camera, Trash2, MapPin, Clock, Plus, X } from "lucide-react";
-import { toast } from "sonner";
 
 function fmtDateTime(iso) {
   if (!iso) return "";

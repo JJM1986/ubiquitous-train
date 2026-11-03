@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { base44 } from "@/api/base44Client";
-import { ScanLine, FileImage, Printer, Trash2, X, Loader2, Pencil, FileText, CheckCircle2, AlertTriangle, Circle } from "lucide-react";
-import { toast } from "sonner";
+import { ScanLine, FileImage, Printer, Trash2, X, Loader2, FileText, CheckCircle2, AlertTriangle, Circle } from "lucide-react";
 
 const typeColors = {
   Aufbauplan: "bg-blue-100 text-blue-700",

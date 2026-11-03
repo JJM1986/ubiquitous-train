@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import ReactMarkdown from "react-markdown";
 import BackButton from "@/components/BackButton";
-import { toast } from "sonner";
 
 export default function HilfeartikelDetail() {
   const { id } = useParams();

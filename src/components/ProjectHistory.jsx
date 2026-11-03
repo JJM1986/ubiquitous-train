@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
-import { History, User, Calendar, ArrowRight, AlertCircle, CheckCircle, Plus, FileText } from "lucide-react";
-import { toast } from "sonner";
+import { History, User, Calendar, ArrowRight, AlertCircle, CheckCircle, Plus } from "lucide-react";
 
 export default function ProjectHistory({ projectId, projectName }) {
   const [history, setHistory] = useState([]);

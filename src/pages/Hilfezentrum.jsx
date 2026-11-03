@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { Search, ArrowUpRight, HelpCircle, BookOpen } from "lucide-react";
-import { toast } from "sonner";
 
 export default function Hilfezentrum() {
   const [articles, setArticles] = useState([]);

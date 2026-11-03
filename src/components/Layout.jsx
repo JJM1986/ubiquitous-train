@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Outlet, Link, useLocation, useOutlet } from "react-router-dom";
+import { Link, useLocation, useOutlet } from "react-router-dom";
 import { LayoutDashboard, Users, Briefcase, FileText, UserCog, Package, Menu, X, HardHat, LogOut, Calculator, FileCheck, Camera, Download, History, ClipboardCheck, BarChart3, PackageSearch, Settings, Archive, Calendar, ArrowLeftRight, BookOpen, CalendarClock, ScanLine, Shield, Map, Box, HelpCircle, ShoppingCart, FileArchive, Wrench, ShieldCheck, Contact, AlertCircle, Truck, ClipboardList } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 import { motion, AnimatePresence } from "framer-motion";

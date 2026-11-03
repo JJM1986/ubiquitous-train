@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { PackageSearch, AlertTriangle, Search } from "lucide-react";
 import LieferstatusTracker from "@/components/LieferstatusTracker";
-import { toast } from "sonner";
 
 const categoryColors = {
   "Gerüstrahmen": "bg-blue-100 text-blue-700",

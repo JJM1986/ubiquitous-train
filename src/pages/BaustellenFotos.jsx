@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { base44 } from "@/api/base44Client";
 import { Camera, MapPin, Clock, Trash2, X } from "lucide-react";
-import { toast } from "sonner";
 
 export default function BaustellenFotos() {
   const [fotos, setFotos] = useState([]);

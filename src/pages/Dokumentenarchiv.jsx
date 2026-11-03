@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { FileArchive, Plus, X, FileText, Download, Folder } from "lucide-react";
-import { toast } from "sonner";
 
 const typeColors = {
   "Freigabeprotokoll": "bg-orange-100 text-orange-700",

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
-import { Plus, Search, Calendar, Clock, X, ChevronDown } from "lucide-react";
-import { toast } from "sonner";
+import { Plus, Search, Calendar, Clock, X } from "lucide-react";
 
 const statusColors = {
   "Geplant": "bg-blue-100 text-blue-700",

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
-import { Plus, Search, Package, AlertTriangle, X, ArrowUp, ArrowDown, RefreshCw, Download, FileText } from "lucide-react";
+import { Plus, Search, Package, AlertTriangle, X, RefreshCw, Download, FileText } from "lucide-react";
 import { exportMaterialsPDF, exportMaterialsCSV } from "@/lib/exportUtils";
-import { toast } from "sonner";
 
 const categoryColors = {
   "Gerüstrahmen": "bg-orange-100 text-orange-700",

@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import { ClipboardCheck, Search, ChevronRight, Plus, Trash2 } from "lucide-react";
 import { DEFAULT_CHECKPOINTS } from "./Geruestfreigaben";
-import { toast } from "sonner";
 
 const statusColors = {
   "Entwurf": "bg-gray-100 text-gray-600",

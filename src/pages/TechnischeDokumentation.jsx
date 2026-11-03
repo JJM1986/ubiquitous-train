@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollText, Printer, HardHat, Box, FileCheck, Package, Map, ShieldCheck, Calculator, Mail } from "lucide-react";
+import { ScrollText, Printer, HardHat, Box, FileCheck, Package, Map, ShieldCheck, Calculator } from "lucide-react";
 
 const innovations = [
   {

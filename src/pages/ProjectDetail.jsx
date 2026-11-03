@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
-import { useParams, Link } from "react-router-dom";
-import { MapPin, Calendar, Edit, Save, X, Trash2, Download } from "lucide-react";
+import { useParams } from "react-router-dom";
+import { Edit, Save, X, Download } from "lucide-react";
 import { exportProjectPDF } from "@/lib/exportUtils";
 import ProjectPhotoGallery from "@/components/ProjectPhotoGallery";
 import ProjectAbnahmeCheckliste from "@/components/ProjectAbnahmeCheckliste";
@@ -12,7 +12,6 @@ import ProjectRestmaterial from "@/components/ProjectRestmaterial";
 import ProjectStundenkonto from "@/components/ProjectStundenkonto";
 import { useAuth } from "@/lib/AuthContext";
 import BackButton from "@/components/BackButton";
-import { toast } from "sonner";
 
 const statusColors = {
   "Anfrage": "bg-gray-100 text-gray-700",

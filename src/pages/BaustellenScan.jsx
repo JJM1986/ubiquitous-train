@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { base44 } from "@/api/base44Client";
 import { ScanLine, Camera, X, Plus, Minus, MapPin, Check, Trash2, Package } from "lucide-react";
-import { toast } from "sonner";
 
 export default function BaustellenScan() {
   const [materials, setMaterials] = useState([]);
