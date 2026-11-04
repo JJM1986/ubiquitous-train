@@ -1,5 +1,8 @@
+import { safeCall } from "@/lib/safeCall";
 import React, { useState, useEffect, useRef } from "react";
 import { base44 } from "@/api/base44Client";
+import { resolveFileUrl } from "@/lib/storageUrl";
+import { StorageImage, StorageFrame } from "@/components/StorageFile";
 import { ScanLine, FileImage, Printer, Trash2, X, Loader2, FileText, CheckCircle2, AlertTriangle, Circle } from "lucide-react";
 
 const typeColors = {
@@ -61,13 +64,21 @@ export default function ProjectAufbauplaene({ projectId, projectName }) {
     setPlans((prev) => prev.filter((p) => p.id !== id));
   }
 
-  function printPlan(plan) {
+  async function printPlan(plan) {
     const isImg = /\.(jpg|jpeg|png|gif|webp|bmp)$/i.test(plan.file_url);
     const win = window.open("", "_blank", "width=900,height=700");
     if (!win) return;
+    let src;
+    try {
+      src = await resolveFileUrl(plan.file_url);
+    } catch (err) {
+      console.error("[Storage]", err);
+      win.close();
+      return;
+    }
     const content = isImg
-      ? `<img src="${plan.file_url}" style="max-width:100%;max-height:90vh;object-fit:contain" onload="window.print()"/>`
-      : `<iframe src="${plan.file_url}" style="width:100%;height:90vh;border:0" onload="window.print()"></iframe>`;
+      ? `<img src="${src}" style="max-width:100%;max-height:90vh;object-fit:contain" onload="window.print()"/>`
+      : `<iframe src="${src}" style="width:100%;height:90vh;border:0" onload="window.print()"></iframe>`;
     win.document.write(`<html><head><title>${plan.title}</title><style>body{margin:0;display:flex;justify-content:center;align-items:center;font-family:sans-serif}</style></head><body>${content}<div style="position:fixed;top:8px;right:8px;font-size:12px;color:#999">${plan.title} — ${planName(projectName)}</div></body></html>`);
     win.document.close();
   }
@@ -124,7 +135,7 @@ export default function ProjectAufbauplaene({ projectId, projectName }) {
               <div key={p.id} className="border border-gray-100 rounded-xl overflow-hidden hover:shadow-md transition-shadow group">
                 <div className="aspect-square bg-gray-50 relative cursor-pointer" onClick={() => setViewer(p)}>
                   {isImg
-                    ? <img src={p.file_url} alt={p.title} className="w-full h-full object-cover" />
+                    ? <StorageImage src={p.file_url} alt={p.title} className="w-full h-full object-cover" />
                     : <div className="w-full h-full flex flex-col items-center justify-center text-gray-400"><FileText className="w-8 h-8 mb-1" /><span className="text-xs">PDF/Datei</span></div>}
                   <span className={`absolute top-2 left-2 text-[10px] px-2 py-0.5 rounded-full font-medium ${typeColors[p.document_type] || typeColors.Sonstiges}`}>{p.document_type}</span>
                   {p.has_deviation && <span className="absolute top-2 right-2 text-[10px] px-2 py-0.5 rounded-full font-medium bg-red-500 text-white flex items-center gap-0.5"><AlertTriangle className="w-2.5 h-2.5" /> Abweichung</span>}
@@ -164,7 +175,7 @@ export default function ProjectAufbauplaene({ projectId, projectName }) {
                   {uploading ? (
                     <><Loader2 className="w-6 h-6 text-orange-500 animate-spin mb-2" /><span className="text-sm text-gray-500">Wird hochgeladen...</span></>
                   ) : draft.file_url ? (
-                    <><ScanLine className="w-6 h-6 text-green-500 mb-2" /><span className="text-sm text-green-600 font-medium">Datei ausgewählt ✓</span><span className="text-xs text-gray-400 mt-0.5 truncate max-w-[200px]">{draft.file_url}</span></>
+                    <><ScanLine className="w-6 h-6 text-green-500 mb-2" /><span className="text-sm text-green-600 font-medium">Datei ausgewählt ✓</span></>
                   ) : (
                     <><ScanLine className="w-6 h-6 text-gray-400 mb-2" /><span className="text-sm text-gray-500">Kamera öffnen oder Datei wählen</span></>
                   )}
@@ -209,8 +220,8 @@ export default function ProjectAufbauplaene({ projectId, projectName }) {
           <button className="absolute top-4 right-4 p-2 rounded-xl bg-white/10 hover:bg-white/20 text-white"><X className="w-5 h-5" /></button>
           <button onClick={(e) => { e.stopPropagation(); printPlan(viewer); }} className="absolute top-4 left-4 flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-sm font-medium"><Printer className="w-4 h-4" /> Drucken</button>
           {/\.(jpg|jpeg|png|gif|webp|bmp)$/i.test(viewer.file_url)
-            ? <img src={viewer.file_url} alt={viewer.title} className="max-w-full max-h-full object-contain" onClick={(e) => e.stopPropagation()} />
-            : <iframe src={viewer.file_url} className="w-full h-full max-w-4xl max-h-[90vh] bg-white rounded-xl" onClick={(e) => e.stopPropagation()} />}
+            ? <StorageImage src={viewer.file_url} alt={viewer.title} className="max-w-full max-h-full object-contain" onClick={(e) => e.stopPropagation()} />
+            : <StorageFrame src={viewer.file_url} className="w-full h-full max-w-4xl max-h-[90vh] bg-white rounded-xl" onClick={(e) => e.stopPropagation()} />}
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-sm font-medium bg-black/50 px-4 py-2 rounded-xl">{viewer.title}</div>
         </div>
       )}

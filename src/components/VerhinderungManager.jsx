@@ -1,3 +1,4 @@
+import { safeCall } from "@/lib/safeCall";
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { AlertTriangle, X, Wrench, Clock, CheckCircle, Plus, Send } from "lucide-react";

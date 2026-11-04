@@ -1,5 +1,7 @@
+import { safeCall } from "@/lib/safeCall";
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
+import { StorageLink } from "@/components/StorageFile";
 import { FileArchive, Plus, X, FileText, Download, Folder } from "lucide-react";
 
 const typeColors = {
@@ -113,9 +115,9 @@ export default function Dokumentenarchiv() {
                       </div>
                       <span className={`text-xs px-2 py-1 rounded-full font-medium ${typeColors[d.document_type] || typeColors.Sonstiges}`}>{d.document_type}</span>
                       {d.file_url && (
-                        <a href={d.file_url} target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg hover:bg-gray-100">
+                        <StorageLink href={d.file_url} className="p-2 rounded-lg hover:bg-gray-100">
                           <Download className="w-4 h-4 text-gray-500" />
-                        </a>
+                        </StorageLink>
                       )}
                     </div>
                   ))}

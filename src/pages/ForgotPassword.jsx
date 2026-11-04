@@ -1,3 +1,4 @@
+import { safeCall } from "@/lib/safeCall";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { base44 } from "@/api/base44Client";

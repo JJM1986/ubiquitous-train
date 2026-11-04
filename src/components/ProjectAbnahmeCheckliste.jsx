@@ -1,3 +1,4 @@
+import { safeCall } from "@/lib/safeCall";
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { ClipboardCheck, Save, Check, X, Minus, Plus } from "lucide-react";

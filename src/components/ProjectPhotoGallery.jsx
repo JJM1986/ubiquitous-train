@@ -1,5 +1,7 @@
+import { safeCall } from "@/lib/safeCall";
 import React, { useState, useEffect, useRef } from "react";
 import { base44 } from "@/api/base44Client";
+import { StorageImage } from "@/components/StorageFile";
 import { Camera, Trash2, MapPin, Clock, Plus, X } from "lucide-react";
 
 function fmtDateTime(iso) {
@@ -101,7 +103,7 @@ export default function ProjectPhotoGallery({ projectId, projectName }) {
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
           {photos.map((photo) => (
             <div key={photo.id} className="relative group rounded-xl overflow-hidden border border-gray-100">
-              <img src={photo.photo_url} alt={photo.title} className="w-full aspect-square object-cover" />
+              <StorageImage src={photo.photo_url} alt={photo.title} className="w-full aspect-square object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-2">
                 <p className="text-white text-xs font-medium truncate">{photo.title}</p>
                 <div className="flex items-center gap-1 text-white/80 text-xs">

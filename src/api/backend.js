@@ -11,7 +11,7 @@
  */
 import { supabase, tableName, parseSort } from "./supabaseClient";
 
-const STORAGE_BUCKET = "uploads";
+import { STORAGE_BUCKET } from "@/lib/storageUrl";
 
 function unwrap({ data, error }) {
   if (error) throw new Error(error.message || "Backend-Fehler");
@@ -197,7 +197,12 @@ const auth = {
 
 const integrations = {
   Core: {
-    /** UploadFile({ file }) -> { file_url } */
+    /**
+     * UploadFile({ file }) -> { file_url }
+     * Der Bucket ist privat: file_url ist nur die gespeicherte Referenz und
+     * nicht direkt abrufbar. Zum Anzeigen StorageImage/StorageLink bzw.
+     * resolveFileUrl() aus "@/lib/storageUrl" verwenden.
+     */
     async UploadFile({ file }) {
       const safeName = file.name.replace(/[^\w.\-]/g, "_");
       const path = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}-${safeName}`;

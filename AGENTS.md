@@ -22,5 +22,6 @@ Für Setup, Umgebungsvariablen und Deployment siehe `README.md`.
 - Datenzugriffe über den bestehenden Adapter (`base44.entities.<Name>`) oder direkt über `supabase`. Keinen zweiten Client anlegen.
 - Neue Tabellen in `supabase/01-schema.sql` ergänzen. Tabellennamen sind `snake_case` des Entity-Namens.
 - Geheimnisse (SMTP, API-Schlüssel, `service_role`) gehören in Supabase-Secrets bzw. Edge Functions, nie in `VITE_`-Variablen oder in den Frontend-Code.
+- Der Bucket `uploads` ist privat. Gespeicherte Datei-URLs nie direkt in `<img>`, `<a>` oder `<iframe>` einsetzen, sondern `StorageImage`, `StorageLink` oder `StorageFrame` aus `src/components/StorageFile.jsx` bzw. `resolveFileUrl()` aus `src/lib/storageUrl.js` verwenden.
 - Fehler aus dem Backend werden geworfen und in der UI mit `safeCall()` abgefangen. Dieses Muster beibehalten.
 - Vor Abschluss von Codeänderungen `npm run lint` und `npm run build` ausführen.

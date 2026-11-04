@@ -33,7 +33,7 @@ Alles mit `VITE_` landet im Browser. Hier gehören nur öffentliche Werte hin, n
 
 ## Supabase einrichten
 
-1. **Datenbank:** Im Supabase SQL-Editor zuerst `supabase/01-schema.sql`, dann `supabase/02-storage.sql` ausführen. Das zweite Skript legt den Speicher-Bucket `uploads` für Fotos, Aufbaupläne und Dokumente an.
+1. **Datenbank:** Im Supabase SQL-Editor zuerst `supabase/01-schema.sql`, dann `supabase/02-storage.sql` ausführen. Das zweite Skript legt den privaten Speicher-Bucket `uploads` für Fotos, Aufbaupläne und Dokumente an. Es kann erneut ausgeführt werden und stellt einen bestehenden öffentlichen Bucket auf privat um.
 2. **E-Mail-Versand:** Die Edge Function `send-email` verschickt Mails per SMTP. Zugangsdaten als Secrets hinterlegen und die Function deployen:
 
    ```bash
@@ -49,7 +49,7 @@ Die App lief ursprünglich auf Base44 und wurde auf Supabase umgezogen. Damit di
 - `src/api/backend.js`: bildet die alten Base44-Befehle auf Supabase ab:
   - `entities.<Name>.list / filter / get / create / update / delete` → Tabelle in `snake_case` (aus `AbnahmeCheckliste` wird `abnahme_checkliste`)
   - `auth.*` → Supabase Auth
-  - `integrations.Core.UploadFile` → Storage-Bucket `uploads`
+  - `integrations.Core.UploadFile` → privater Storage-Bucket `uploads`. Die zurückgegebene `file_url` ist nur eine Referenz. Angezeigt wird sie über `StorageImage`, `StorageLink` und `StorageFrame` aus `src/components/StorageFile.jsx`, die einen signierten Link mit einer Stunde Gültigkeit erzeugen.
   - `integrations.Core.SendEmail` → Edge Function `send-email`
 - `src/api/base44Client.js`: exportiert den Adapter weiterhin unter dem Namen `base44`, damit bestehende Imports funktionieren.
 
