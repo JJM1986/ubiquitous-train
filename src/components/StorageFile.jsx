@@ -8,15 +8,29 @@ import { resolveFileUrl } from "@/lib/storageUrl";
  */
 
 export function StorageImage({ src, alt = "", className, ...props }) {
-  const url = useFileUrl(src);
+  const { url, error } = useFileUrl(src);
+  if (error) {
+    return (
+      <div className={`${className || ""} bg-gray-100 flex items-center justify-center text-xs text-gray-400`} title="Datei konnte nicht geladen werden">
+        Datei nicht verfügbar
+      </div>
+    );
+  }
   if (!url) return <div className={`${className || ""} bg-gray-100 animate-pulse`} />;
   return <img src={url} alt={alt} className={className} {...props} />;
 }
 
-export function StorageFrame({ src, ...props }) {
-  const url = useFileUrl(src);
+export function StorageFrame({ src, className, ...props }) {
+  const { url, error } = useFileUrl(src);
+  if (error) {
+    return (
+      <div className={`${className || ""} flex items-center justify-center text-sm text-gray-500`} {...props}>
+        Datei konnte nicht geladen werden.
+      </div>
+    );
+  }
   if (!url) return null;
-  return <iframe src={url} {...props} />;
+  return <iframe src={url} className={className} {...props} />;
 }
 
 /** Link, der den signierten Link erst beim Klick erzeugt (bleibt so immer gueltig) */
