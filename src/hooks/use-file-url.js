@@ -1,22 +1,29 @@
 import * as React from "react"
 import { resolveFileUrl, storagePath } from "@/lib/storageUrl"
 
-/** Gespeicherte Datei-URL -> anzeigbare URL; null, solange der signierte Link laedt */
+/**
+ * Gespeicherte Datei-URL -> { url, error }.
+ * url ist null, solange der signierte Link laedt oder das Signieren
+ * fehlgeschlagen ist; im Fehlerfall ist error gesetzt.
+ */
 export function useFileUrl(url) {
-  const [resolved, setResolved] = React.useState(() => (storagePath(url) ? null : url))
+  const [state, setState] = React.useState(() => ({ url: storagePath(url) ? null : url, error: null }))
 
   React.useEffect(() => {
     if (!storagePath(url)) {
-      setResolved(url)
+      setState({ url, error: null })
       return
     }
     let active = true
-    setResolved(null)
+    setState({ url: null, error: null })
     resolveFileUrl(url)
-      .then((signed) => { if (active) setResolved(signed) })
-      .catch((err) => console.error("[Storage]", err))
+      .then((signed) => { if (active) setState({ url: signed, error: null }) })
+      .catch((err) => {
+        console.error("[Storage]", err)
+        if (active) setState({ url: null, error: err })
+      })
     return () => { active = false }
   }, [url])
 
-  return resolved
+  return state
 }
