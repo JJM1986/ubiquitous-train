@@ -975,3 +975,29 @@ drop policy if exists "verhinderung_update" on public.verhinderung;
 create policy "verhinderung_update" on public.verhinderung for update using (public.auth_role() in ('admin','bauleiter','monteur'));
 drop policy if exists "verhinderung_delete" on public.verhinderung;
 create policy "verhinderung_delete" on public.verhinderung for delete using (public.auth_role() in ('admin'));
+
+-- ---------------------------------------------------------------------
+-- AI-Nutzungsprotokoll (Prompt-Caching-Auswertung der Edge Function
+-- extract-document). Geschrieben wird nur ueber den service_role-Schluessel.
+-- ---------------------------------------------------------------------
+create table if not exists public.ai_usage_log (
+  id            text primary key default gen_random_uuid()::text,
+  feature             text not null,
+  document_type       text,
+  model               text not null,
+  cache_mode          text,
+  cache_ttl           text,
+  input_tokens        integer,
+  cached_tokens       integer,
+  cache_write_tokens  integer,
+  output_tokens       integer,
+  latency_ms          integer,
+  status              text not null default 'ok',
+  created_by          text,
+  created_date        timestamptz not null default now()
+);
+create index if not exists ai_usage_log_created_date_idx on public.ai_usage_log (created_date desc);
+create index if not exists ai_usage_log_feature_idx on public.ai_usage_log (feature, document_type);
+alter table public.ai_usage_log enable row level security;
+drop policy if exists "ai_usage_log_select" on public.ai_usage_log;
+create policy "ai_usage_log_select" on public.ai_usage_log for select using (public.auth_role() in ('admin'));

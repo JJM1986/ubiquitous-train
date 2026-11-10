@@ -216,6 +216,19 @@ const integrations = {
       return { file_url: data.publicUrl };
     },
 
+    /**
+     * ExtractDocument({ file_url, document_type }) -> { document_type, data }
+     * Liest Felder aus einem hochgeladenen PDF/Bild (Edge Function
+     * extract-document). file_url ist der Wert aus UploadFile().
+     */
+    async ExtractDocument({ file_url, document_type }) {
+      return unwrap(
+        await supabase.functions.invoke("extract-document", {
+          body: { file_url, document_type },
+        })
+      );
+    },
+
     /** SendEmail({ to, subject, body }) — laeuft ueber die Edge Function */
     async SendEmail({ to, subject, body }) {
       return unwrap(
