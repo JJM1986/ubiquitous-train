@@ -1,3 +1,4 @@
+import { safeCall } from "@/lib/safeCall";
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
@@ -5,7 +6,6 @@ import { Plus, Search, MapPin, Calendar, ChevronRight, Briefcase } from "lucide-
 import { useAuth } from "@/lib/AuthContext";
 import PullToRefresh from "@/components/PullToRefresh";
 import BottomSheetSelect from "@/components/BottomSheetSelect";
-import { toast } from "sonner";
 
 const statusColors = {
   "Anfrage": "bg-gray-100 text-gray-700",

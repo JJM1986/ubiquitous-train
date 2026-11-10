@@ -11,7 +11,7 @@
  */
 import { supabase, tableName, parseSort } from "./supabaseClient";
 
-const STORAGE_BUCKET = "uploads";
+import { STORAGE_BUCKET } from "@/lib/storageUrl";
 
 function unwrap({ data, error }) {
   if (error) throw new Error(error.message || "Backend-Fehler");
@@ -197,7 +197,12 @@ const auth = {
 
 const integrations = {
   Core: {
-    /** UploadFile({ file }) -> { file_url } */
+    /**
+     * UploadFile({ file }) -> { file_url }
+     * Der Bucket ist privat: file_url ist nur die gespeicherte Referenz und
+     * nicht direkt abrufbar. Zum Anzeigen StorageImage/StorageLink bzw.
+     * resolveFileUrl() aus "@/lib/storageUrl" verwenden.
+     */
     async UploadFile({ file }) {
       const safeName = file.name.replace(/[^\w.\-]/g, "_");
       const path = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}-${safeName}`;
@@ -209,6 +214,19 @@ const integrations = {
 
       const { data } = supabase.storage.from(STORAGE_BUCKET).getPublicUrl(path);
       return { file_url: data.publicUrl };
+    },
+
+    /**
+     * ExtractDocument({ file_url, document_type }) -> { document_type, data }
+     * Liest Felder aus einem hochgeladenen PDF/Bild (Edge Function
+     * extract-document). file_url ist der Wert aus UploadFile().
+     */
+    async ExtractDocument({ file_url, document_type }) {
+      return unwrap(
+        await supabase.functions.invoke("extract-document", {
+          body: { file_url, document_type },
+        })
+      );
     },
 
     /** SendEmail({ to, subject, body }) — laeuft ueber die Edge Function */

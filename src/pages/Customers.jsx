@@ -1,7 +1,7 @@
+import { safeCall } from "@/lib/safeCall";
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
-import { Plus, Search, Phone, Mail, Building2, Edit, Trash2, X, Check } from "lucide-react";
-import { toast } from "sonner";
+import { Plus, Search, Phone, Mail, Building2, Edit, Trash2, X } from "lucide-react";
 
 const emptyForm = { name: "", company: "", email: "", phone: "", address: "", city: "", zip: "", notes: "", status: "aktiv" };
 

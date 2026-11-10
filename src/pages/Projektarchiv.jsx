@@ -1,8 +1,8 @@
+import { safeCall } from "@/lib/safeCall";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import { Archive, Search, RotateCcw, MapPin, Calendar } from "lucide-react";
-import { toast } from "sonner";
 
 const statusColors = {
   "Abgeschlossen": "bg-green-100 text-green-700",

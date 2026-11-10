@@ -1,8 +1,8 @@
+import { safeCall } from "@/lib/safeCall";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import { Plus, FileCheck, Search, ChevronRight, Trash2 } from "lucide-react";
-import { toast } from "sonner";
 
 const statusColors = {
   "Entwurf": "bg-gray-100 text-gray-600",

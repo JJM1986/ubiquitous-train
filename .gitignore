@@ -1,0 +1,29 @@
+# Abhängigkeiten
+node_modules/
+
+# Build-Ausgabe
+dist/
+dist-ssr/
+*.local
+
+# Umgebungsvariablen (Schlüssel nie committen)
+.env
+.env.*
+!.env.example
+
+# Supabase lokal
+supabase/.temp/
+supabase/.branches/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Editor / Betriebssystem
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini

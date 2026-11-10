@@ -1,7 +1,7 @@
+import { safeCall } from "@/lib/safeCall";
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Clock, TrendingUp, TrendingDown, Edit, Save, X, Calendar } from "lucide-react";
-import { toast } from "sonner";
 
 export default function ProjectStundenkonto({ projectId, projectName }) {
   const [konto, setKonto] = useState(null);

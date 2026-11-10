@@ -1,10 +1,10 @@
+import { safeCall } from "@/lib/safeCall";
 import React, { useState, useEffect } from "react";
 import { MapContainer, TileLayer, CircleMarker, Popup } from "react-leaflet";
 import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { Map as MapIcon, Loader2 } from "lucide-react";
 import "leaflet/dist/leaflet.css";
-import { toast } from "sonner";
 
 const statusColors = {
   "Anfrage": "#9ca3af",

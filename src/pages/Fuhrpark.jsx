@@ -1,6 +1,7 @@
+import { safeCall } from "@/lib/safeCall";
 import React, { useState, useEffect } from "react";
-import { toast } from "sonner";
 import { base44 } from "@/api/base44Client";
+import { StorageImage } from "@/components/StorageFile";
 import {
   Plus, Search, Truck, Car, Wrench, Calendar, User, MapPin, Edit, Trash2, X, Save, Clock, Package,
 } from "lucide-react";
@@ -208,7 +209,7 @@ export default function Fuhrpark() {
                   <div className="flex items-start gap-3">
                     <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center flex-shrink-0 overflow-hidden">
                       {v.photo_url
-                        ? <img src={v.photo_url} alt={v.bezeichnung} className="w-full h-full object-cover" />
+                        ? <StorageImage src={v.photo_url} alt={v.bezeichnung} className="w-full h-full object-cover" />
                         : <Icon className="w-6 h-6 text-gray-400" />}
                     </div>
                     <div className="flex-1 min-w-0">

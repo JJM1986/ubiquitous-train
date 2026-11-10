@@ -1,9 +1,9 @@
+import { safeCall } from "@/lib/safeCall";
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { useAuth } from "@/lib/AuthContext";
-import { AlertTriangle, X, Wrench, Clock, CheckCircle, ArrowRight, Send } from "lucide-react";
+import { AlertTriangle, X, Wrench, Clock, CheckCircle, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { toast } from "sonner";
 
 export default function VerhinderungAlert() {
   const { user } = useAuth();

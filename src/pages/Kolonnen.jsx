@@ -1,7 +1,7 @@
+import { safeCall } from "@/lib/safeCall";
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Plus, Users, X, Search } from "lucide-react";
-import { toast } from "sonner";
 
 const emptyForm = { name: "", leader_id: "", member_ids: [], status: "aktiv", notes: "" };
 

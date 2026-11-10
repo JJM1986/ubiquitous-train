@@ -1,3 +1,4 @@
+import { safeCall } from "@/lib/safeCall";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
@@ -6,7 +7,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Mail, ArrowLeft, Loader2 } from "lucide-react";
 import AuthLayout from "@/components/AuthLayout";
-import { toast } from "sonner";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");

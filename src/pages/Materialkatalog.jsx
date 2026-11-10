@@ -1,6 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { WEIGHTS_PER_UNIT } from "@/lib/geruestrechnerSession";
-import { HERSTELLER_SYSTEME, PART_ROLES, PART_MAPPINGS, resolvePart, catalogForSystem } from "@/lib/herstellerSysteme";
+import { HERSTELLER_SYSTEME, PART_ROLES, catalogForSystem } from "@/lib/herstellerSysteme";
 import { BookOpen, Search } from "lucide-react";
 
 const categoryColors = {

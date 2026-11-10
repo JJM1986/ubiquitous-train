@@ -64,7 +64,7 @@ import Datenschutz from './pages/Datenschutz';
 import AGB from './pages/AGB';
 
 const AuthenticatedApp = () => {
-  const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
+  const { isLoadingAuth, isLoadingPublicSettings, authError } = useAuth();
 
   if (isLoadingPublicSettings || isLoadingAuth) {
     return (
@@ -77,13 +77,11 @@ const AuthenticatedApp = () => {
     );
   }
 
-  if (authError) {
-    if (authError.type === 'user_not_registered') {
-      return <UserNotRegisteredError />;
-    } else if (authError.type === 'auth_required') {
-      navigateToLogin();
-      return null;
-    }
+  // Nicht angemeldete Besucher sehen die oeffentlichen Seiten. Geschuetzte
+  // Seiten leitet ProtectedRoute auf /login um. Keine harte Umleitung hier,
+  // sonst laedt /login sich endlos selbst neu.
+  if (authError?.type === 'user_not_registered') {
+    return <UserNotRegisteredError />;
   }
 
   return (

@@ -1,7 +1,8 @@
+import { safeCall } from "@/lib/safeCall";
 import React, { useState, useEffect, useRef } from "react";
 import { base44 } from "@/api/base44Client";
+import { StorageImage } from "@/components/StorageFile";
 import { Settings, Save, Check, Upload, AlertTriangle, Trash2 } from "lucide-react";
-import { toast } from "sonner";
 
 const emptyForm = {
   company_name: "", address: "", zip: "", city: "",
@@ -105,7 +106,7 @@ export default function Unternehmenseinstellungen() {
           <div className="flex items-center gap-4">
             <div className="w-20 h-20 bg-gray-100 rounded-xl flex items-center justify-center overflow-hidden flex-shrink-0 border border-gray-200">
               {data.logo_url
-                ? <img src={data.logo_url} alt="Logo" className="w-full h-full object-contain" />
+                ? <StorageImage src={data.logo_url} alt="Logo" className="w-full h-full object-contain" />
                 : <span className="text-gray-300 text-xs">Kein Logo</span>}
             </div>
             <div>

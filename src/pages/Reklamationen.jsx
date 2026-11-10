@@ -1,8 +1,8 @@
+import { safeCall } from "@/lib/safeCall";
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { useAuth } from "@/lib/AuthContext";
 import { Plus, Search, AlertCircle, X, Clock, ChevronDown, ChevronUp } from "lucide-react";
-import { toast } from "sonner";
 
 const statusConfig = {
   "Gemeldet": { color: "bg-blue-100 text-blue-700", dot: "bg-blue-500" },

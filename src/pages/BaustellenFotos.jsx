@@ -1,7 +1,8 @@
+import { safeCall } from "@/lib/safeCall";
 import React, { useState, useEffect, useRef } from "react";
 import { base44 } from "@/api/base44Client";
+import { StorageImage } from "@/components/StorageFile";
 import { Camera, MapPin, Clock, Trash2, X } from "lucide-react";
-import { toast } from "sonner";
 
 export default function BaustellenFotos() {
   const [fotos, setFotos] = useState([]);
@@ -141,7 +142,7 @@ export default function BaustellenFotos() {
                 className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden group"
               >
                 <div className="relative aspect-square bg-gray-100">
-                  <img src={f.photo_url} alt={f.title} className="w-full h-full object-cover" />
+                  <StorageImage src={f.photo_url} alt={f.title} className="w-full h-full object-cover" />
                   <button
                     onClick={() => remove(f.id)}
                     className="absolute top-2 right-2 p-1.5 bg-black/50 rounded-lg text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500"

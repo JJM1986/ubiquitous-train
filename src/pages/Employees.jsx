@@ -1,7 +1,7 @@
+import { safeCall } from "@/lib/safeCall";
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Plus, Search, Phone, Mail, Edit, Trash2, X, UserCog } from "lucide-react";
-import { toast } from "sonner";
 
 const roleColors = {
   "Vorarbeiter": "bg-purple-100 text-purple-700",
