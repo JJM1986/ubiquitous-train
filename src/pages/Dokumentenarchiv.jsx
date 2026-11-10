@@ -20,6 +20,7 @@ export default function Dokumentenarchiv() {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [extracting, setExtracting] = useState(false);
   const [filterProject, setFilterProject] = useState("all");
   const [form, setForm] = useState({ title: "", document_type: "Freigabeprotokoll", project_id: "", project_name: "", file_url: "", notes: "" });
 
@@ -42,6 +43,26 @@ export default function Dokumentenarchiv() {
       setForm(f => ({ ...f, file_url }));
     } finally {
       setUploading(false);
+    }
+  }
+
+  // Liest Felder aus dem hochgeladenen Dokument und haengt sie an die Notizen an.
+  async function extract() {
+    if (!form.file_url) return;
+    setExtracting(true);
+    try {
+      const result = await safeCall(
+        () => base44.integrations.Core.ExtractDocument({ file_url: form.file_url, document_type: form.document_type }),
+        { fallback: null, message: "Auslesen fehlgeschlagen." }
+      );
+      if (!result?.data) return;
+      const lines = Object.entries(result.data)
+        .filter(([, v]) => v !== null && v !== "")
+        .map(([k, v]) => `${k.replace(/_/g, " ")}: ${v}`);
+      if (lines.length === 0) return;
+      setForm(f => ({ ...f, notes: [f.notes, lines.join("\n")].filter(Boolean).join("\n\n") }));
+    } finally {
+      setExtracting(false);
     }
   }
 
@@ -160,6 +181,11 @@ export default function Dokumentenarchiv() {
                 <input type="file" accept=".pdf" onChange={handleFile} className="w-full mt-1 text-sm" disabled={uploading} />
                 {uploading && <p className="text-xs text-orange-500 mt-1">Wird hochgeladen…</p>}
                 {form.file_url && !uploading && <p className="text-xs text-green-600 mt-1">✓ Datei hochgeladen</p>}
+                {form.file_url && !uploading && (
+                  <button type="button" onClick={extract} disabled={extracting} className="mt-2 text-xs text-orange-600 hover:text-orange-700 underline disabled:opacity-50">
+                    {extracting ? "Daten werden ausgelesen…" : "Daten automatisch auslesen (in Notizen)"}
+                  </button>
+                )}
               </div>
               <div>
                 <label className="text-xs text-gray-500">Notizen</label>
